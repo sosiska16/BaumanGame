@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scriptes\PlayerMove.cs" />
+    <Compile Include="Assets\Scriptes\IsGround.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
