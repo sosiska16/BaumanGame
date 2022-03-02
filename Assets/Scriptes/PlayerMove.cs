@@ -14,13 +14,18 @@ public class PlayerMove : MonoBehaviour
     }
     private void Update()
     {
-        float moveVelocity = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveVelocity * moveSpeed, rb.velocity.y);
+        PMove();
         Jump();
     }
-    private void Jump()
+
+    private void PMove() // Передвижение персонажа по горизонтале
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        float moveVelocity = Input.GetAxis("Horizontal");
+        rb.velocity = new Vector2(moveVelocity * moveSpeed, rb.velocity.y);
+    }
+    private void Jump() // Обработка прыжка и проверка на земле ли игрок, идея реализовать через событие
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && IsGround.onGround)
         {
             rb.AddForce(Vector2.up * jumpForce);
         }
