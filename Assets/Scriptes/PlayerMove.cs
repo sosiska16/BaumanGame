@@ -15,6 +15,7 @@ public class PlayerMove : MonoBehaviour
     private void Update()
     {
         Jump();
+        PlatformDown();
     }
 
     private void FixedUpdate()
@@ -50,5 +51,14 @@ public class PlayerMove : MonoBehaviour
                 jumpCount++;
             }
         //-------------------------
+    }
+    
+    //Вызов функции PlatformCheck, если нажата S
+    public void PlatformDown()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            GetComponent<PlatformFalling>().Start();
+        }
     }
 }
