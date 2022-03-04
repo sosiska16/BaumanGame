@@ -11,12 +11,17 @@ public class PlayerMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
+
     private void Update()
     {
-        PMove();
         Jump();
     }
 
+    private void FixedUpdate()
+    {
+        PMove();
+    }
+    //-------------------------------------------
     private void PMove() // Передвижение персонажа по горизонтале
     {
         float moveVelocity = Input.GetAxis("Horizontal");
@@ -34,6 +39,7 @@ public class PlayerMove : MonoBehaviour
         //-------------------------
         if (Input.GetKeyDown(KeyCode.Space) && IsGround.onGround)
         {
+            rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(Vector2.up * jumpForce);
             jumpCount = 0;
         }
