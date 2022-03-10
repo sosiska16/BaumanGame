@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class PlatformFalling : MonoBehaviour
 {
+    // Включение скрипта
     public void Start()
-    {
-        IgnoreLayerCollisionOn();
-    }
-    //Включение скрипта
-    private void IgnoreLayerCollisionOn()
     {
         Physics2D.IgnoreLayerCollision(9, 10, true);
         Invoke("IgnoreLayerCollisionOff", 0.5f);
     }
+
     //Выключение скрипта
     private void IgnoreLayerCollisionOff()
     {

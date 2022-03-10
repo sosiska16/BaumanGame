@@ -14,16 +14,17 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        Jump();
+        PlayerJump();
         PlatformDown();
+        UpDownOnStairs();
     }
 
     private void FixedUpdate()
     {
-        PMove();
+        PlayerMoving();
     }
     //-------------------------------------------
-    private void PMove() // Передвижение персонажа по горизонтале
+    private void PlayerMoving() // Передвижение персонажа по горизонтале
     {
         float moveVelocity = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveVelocity * moveSpeed, rb.velocity.y);
@@ -35,17 +36,17 @@ public class PlayerMove : MonoBehaviour
     private short jumpCount = 0;
     public float doubleJumpVelocity = 10f;
 
-    private void Jump() // Обработка прыжка, идея реализовать через событие
+    private void PlayerJump() // Обработка прыжка, идея реализовать через событие
     {
         //-------------------------
-        if (Input.GetKeyDown(KeyCode.Space) && IsGround.onGround)
+        if (Input.GetKeyDown(KeyCode.Space) && LayersChecker.onGround)
         {
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(Vector2.up * jumpForce);
             jumpCount = 0;
         }
         //-------------------------
-        if (!IsGround.onGround && Input.GetKeyDown(KeyCode.Space) && jumpCount == 0)
+        if (!LayersChecker.onGround && Input.GetKeyDown(KeyCode.Space) && jumpCount == 0)
             {
                 rb.velocity = new Vector2(0, doubleJumpVelocity);
                 jumpCount++;
@@ -53,12 +54,27 @@ public class PlayerMove : MonoBehaviour
         //-------------------------
     }
     
+   
     //Вызов функции PlatformCheck, если нажата S
     public void PlatformDown()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
             GetComponent<PlatformFalling>().Start();
+        }
+    }
+    
+    
+    // Вызов класса StairUpDown, если персонаж около лестницы
+    public void UpDownOnStairs()
+    {
+        if (LayersChecker.checkStairs)
+        {
+            GetComponent<StairsUpDown>().UpDown();
+        }
+        else
+        {
+            rb.bodyType = RigidbodyType2D.Dynamic;
         }
     }
 }

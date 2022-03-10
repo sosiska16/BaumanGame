@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scriptes\PlatformFalling.cs" />
     <Compile Include="Assets\Scriptes\PlayerMove.cs" />
+    <Compile Include="Assets\Scriptes\StairsUpDown.cs" />
+    <Compile Include="Assets\Scriptes\LayersChecker.cs" />
     <Compile Include="Assets\Scriptes\IsGround.cs" />
   </ItemGroup>
   <ItemGroup>
